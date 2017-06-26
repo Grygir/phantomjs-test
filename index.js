@@ -1,0 +1,2 @@
+console.log('Use `node_modules/.bin/phantomjs phantom.js <scenario name> <site URL address>`');
+console.log('e.g. `node_modules/.bin/phantomjs phantom.js save-product http://b2b-crm-ee.dev2.ll/admin/`');

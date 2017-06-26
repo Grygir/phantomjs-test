@@ -1,0 +1,20 @@
+{
+  "name": "phantomjs-test",
+  "version": "0.1.0",
+  "description": "Project to make automated test scenarios for OroApplications, build over PhantomJS API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/Grygir/phantomjs-test",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Grygir/phantomjs-test.git"
+  },
+  "author": "Hryhorii Hrebiniuk",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "phantomjs-prebuilt": "^2.1.7"
+  }
+}
