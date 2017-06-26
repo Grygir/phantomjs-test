@@ -61,7 +61,7 @@ function PageHelper(page) {
 PageHelper.ACTION_DELAY = 30000;
 
 PageHelper.prototype = {
-    setValue: function(name, value) {
+    fillForm: function(name, value) {
         var values;
         if (typeof name === 'object') {
             values = name;
@@ -100,11 +100,11 @@ PageHelper.prototype = {
         return this._actionPromise();
     },
 
-    clickGridAction: function(row, action) {
+    clickGridAction: function(rowNumber, action) {
         this.page.evaluate(function(row, action) {
-            $('.grid-body tr:first .action-cell a.dropdown-toggle').click()
+            $('.grid-body > tr').eq(row).find('.action-cell a.dropdown-toggle').click()
             $('body > .dropdown-menu__action-cell a.action[title="' + action +'"]').click()
-        }, row, action);
+        }, rowNumber, action);
         return this._actionPromise();
     },
 

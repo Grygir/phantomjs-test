@@ -4,7 +4,7 @@ module.exports = function(page) {
     var pageHelper = new PageHelper(page);
     return pageHelper
         .screen('screens/0_login.png')
-        .setValue({
+        .fillForm({
             _username: 'admin',
             _password: 'admin'
         })
@@ -15,10 +15,10 @@ module.exports = function(page) {
         .clickMenuItem('Products/ Products')
         .screen('screens/2_products.png')
 
-        .clickGridAction('', 'Edit')
+        .clickGridAction(3, 'Edit')
         .screen('screens/3_edit-product.png')
 
-        .setValue('oro_product[sku]', 'newSKU' + Math.random().toString(36).substring(7))
+        .fillForm('oro_product[sku]', 'newSKU' + Math.random().toString(36).substring(7))
         .screen('screens/4_changed-product.png')
         .click('[type=submit]:contains("Save and Close"):first')
         .screen('screens/5_saved-product.png')
