@@ -82,9 +82,10 @@ PageHelper.prototype = {
     },
 
     click: function(selector) {
-        this.page.evaluate(function(sel) {
-            $(sel).click();
+        var rect = page.evaluate(function(sel) {
+            return document.querySelector(sel).getBoundingClientRect();
         }, selector);
+        page.sendEvent('click', rect.left + rect.width / 2, rect.top + rect.height / 2);
         return this._actionPromise();
     },
 
