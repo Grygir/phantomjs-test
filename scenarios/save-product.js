@@ -1,28 +1,35 @@
 var PageHelper = require('../src/pagehelper');
 
 module.exports = function(page) {
-    var pageHelper = new PageHelper(page);
+    var pageHelper = new PageHelper(page, {
+        screensPath: 'screens/save-product',
+        screenPrefix: function() {
+            this._screenCounter = (this._screenCounter || 0) + 1;
+            return this._screenCounter + '_';
+        }
+    });
+
     return pageHelper
-        .screen('screens/0_login.png')
+        .screen('login.png')
         .fillForm({
             _username: 'admin',
             _password: 'admin'
         })
 
         .click('[name="_submit"]')
-        .screen('screens/1_dashboard.png')
+        .screen('dashboard.png')
 
         .clickMenuItem('Products/ Products')
-        .screen('screens/2_products.png')
+        .screen('products.png')
 
         .clickGridAction(3, 'Edit')
-        .screen('screens/3_edit-product.png')
+        .screen('edit-product.png')
 
         .fillForm('oro_product[sku]', 'newSKU' + Math.random().toString(36).substring(7))
-        .screen('screens/4_changed-product.png')
+        .screen('changed-product.png')
         .click('[type=submit]:contains("Save and Close"):first')
-        .screen('screens/5_saved-product.png')
+        .screen('saved-product.png')
 
         .clickMenuItem('Reports & Segments/ Leads/ Leads by Geography')
-        .screen('screens/6_report.png')
+        .screen('report.png')
 };

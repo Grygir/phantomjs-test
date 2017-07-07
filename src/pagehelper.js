@@ -1,7 +1,12 @@
 var Promise = require("bluebird");
 
-function PageHelper(page) {
+function PageHelper(page, options) {
     this.page = page;
+    this.options = {};
+    this.options.screensPath = 'screensPath' in options ? options.screensPath : 'screens';
+    this.options.screenPrefix = 'screenPrefix' in options ? options.screenPrefix : function() {
+        return ''
+    };
 
     page.viewportSize = {
         width: 1440,
@@ -58,7 +63,7 @@ function PageHelper(page) {
     return this._chainPromise();
 }
 
-PageHelper.ACTION_DELAY = 30000;
+PageHelper.ACTION_DELAY = 60000;
 
 PageHelper.prototype = {
     fillForm: function(name, value) {
@@ -83,12 +88,12 @@ PageHelper.prototype = {
 
     click: function(selector) {
         var rect = page.evaluate(function(sel) {
-            return document.querySelector(sel).getBoundingClientRect();
+            return (typeof jQuery !== 'undefined' ? jQuery(sel)[0] : document.querySelector(sel))
+                .getBoundingClientRect();
         }, selector);
         page.sendEvent('click', rect.left + rect.width / 2, rect.top + rect.height / 2);
         return this._actionPromise();
     },
-
 
     clickMenuItem: function(menuItem) {
         this.page.evaluate(function(path) {
@@ -110,7 +115,8 @@ PageHelper.prototype = {
     },
 
     screen: function(name) {
-        this.page.render(name);
+        name = this.options.screenPrefix() + name;
+        this.page.render(this.options.screensPath + '/' + name);
         return this._chainPromise();
     },
 
